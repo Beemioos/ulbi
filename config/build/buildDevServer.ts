@@ -1,9 +1,15 @@
-import { BuildOptions } from './types/config'
 import { Configuration as DevServerConfiguration } from 'webpack-dev-server'
-export function buildDevServer (options:BuildOptions):DevServerConfiguration{
-	return {
-		port:options.port,
-		open:true
-	}
+import { BuildOptions } from './types/config'
 
+export function buildDevServer(options: BuildOptions): DevServerConfiguration {
+	return {
+		port: options.port,
+		open: true,
+		hot: true,
+		host: '0.0.0.0',
+		historyApiFallback: true,
+		static: {
+			directory: options.paths.build,
+		},
+	}
 }
