@@ -1,16 +1,23 @@
+# Используем легковесный образ Node.js
 FROM node:18-alpine
 
-# 2. Рабочая директория внутри контейнера
+# Создаём рабочую директорию
 WORKDIR /app
 
-# 3. Копируем package.json и package-lock.json
+# Копируем package.json и package-lock.json
 COPY package*.json ./
 
-# 4. Устанавливаем зависимости
-RUN npm install
+# Устанавливаем зависимости
+RUN npm ci
 
-# 5. Копируем исходники
+# Копируем весь проект
 COPY . .
 
-# 6. Запускаем dev-server (webpack serve)
+# Собираем проект
+RUN npm run build:prod
+
+# Открываем порт
+EXPOSE 3000
+
+# Запускаем приложение (подставь команду запуска у себя)
 CMD ["npm", "start"]
